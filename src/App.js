@@ -32,14 +32,15 @@ class App extends Component {
   }
 
   onClickChange = event => {
-    const id = event.target.value
-    const chosenList = choicesList.find(item => item.id === id)
-    console.log(chosenList)
+    const {id} = event.target
+    console.log(id)
+    const chosenList = choicesList.filter(item => item.id === id)
+    console.log(chosenList[0])
     const randId = Math.floor(Math.random() * choicesList.length)
     const opponentList = choicesList[randId]
     if (id === opponentList.id) {
       this.setState({
-        chosenList,
+        chosenList: chosenList[0],
         opponentList,
         text: 'IT IS DRAW',
         isPlaying: false,
@@ -51,7 +52,7 @@ class App extends Component {
     ) {
       this.setState(prevState => ({
         score: prevState.score + 1,
-        chosenList,
+        chosenList: chosenList[0],
         opponentList,
         text: 'YOU WON',
         isPlaying: !prevState.isPlaying,
@@ -59,7 +60,7 @@ class App extends Component {
     } else {
       this.setState(prevState => ({
         score: prevState.score - 1,
-        chosenList,
+        chosenList: chosenList[0],
         opponentList,
         text: 'YOU LOSE',
         isPlaying: !prevState.isPlaying,
@@ -97,30 +98,39 @@ class App extends Component {
                 <button
                   type="button"
                   data-testid="rockButton"
-                  value={choicesList[0].id}
                   onClick={this.onClickChange}
                 >
-                  <img src={choicesList[0].imageUrl} alt={choicesList[0].id} />
+                  <img
+                    id={choicesList[0].id}
+                    src={choicesList[0].imageUrl}
+                    alt={choicesList[0].id}
+                  />
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   data-testid="scissorsButton"
-                  value={choicesList[1].id}
                   onClick={this.onClickChange}
                 >
-                  <img src={choicesList[1].imageUrl} alt={choicesList[1].id} />
+                  <img
+                    id={choicesList[1].id}
+                    src={choicesList[1].imageUrl}
+                    alt={choicesList[1].id}
+                  />
                 </button>
               </li>
               <li>
                 <button
                   type="button"
                   data-testid="paperButton"
-                  value={choicesList[2].id}
                   onClick={this.onClickChange}
                 >
-                  <img src={choicesList[2].imageUrl} alt={choicesList[2].id} />
+                  <img
+                    id={choicesList[2].id}
+                    src={choicesList[2].imageUrl}
+                    alt={choicesList[2].id}
+                  />
                 </button>
               </li>
             </ul>
